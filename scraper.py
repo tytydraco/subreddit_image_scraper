@@ -36,7 +36,7 @@ reddit = praw.Reddit(
 
 # Fetch top posts
 subreddit = reddit.subreddit(SUBREDDIT)
-hot_posts = subreddit.hot_posts(limit=None)
+hot_posts = subreddit.hot(limit=None)
 
 tmpdir = tempfile.mkdtemp()
 tmp_path = f'{tmpdir}/catrat_tmp'

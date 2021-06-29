@@ -16,7 +16,6 @@ if len(sys.argv) < 2:
 SUBREDDIT = sys.argv[1]
 ID = os.getenv('REDDIT_ID')
 SECRET = os.getenv('REDDIT_SECRET')
-OUT_DIR = 'img'
 
 # Create output dir if missing
 if not os.path.exists(OUT_DIR):
@@ -39,7 +38,7 @@ subreddit = reddit.subreddit(SUBREDDIT)
 hot_posts = subreddit.hot(limit=None)
 
 tmpdir = tempfile.mkdtemp()
-tmp_path = f'{tmpdir}/catrat_tmp'
+tmp_path = f'{tmpdir}/scraper_tmp'
 
 # Go through all hot posts
 for post in hot_posts:
@@ -62,7 +61,7 @@ for post in hot_posts:
     # Copy temp file to our output directory
     new_file = f'{hash_hex_digest}{ext}'
     if not os.path.exists(new_file):
-        shutil.copy(tmp_path, f'{OUT_DIR}/{new_file}')
+        shutil.copy(tmp_path, f'{new_file}')
         print(url)
 
 # Remove temp file

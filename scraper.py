@@ -17,10 +17,6 @@ SUBREDDIT = sys.argv[1]
 ID = os.getenv('REDDIT_ID')
 SECRET = os.getenv('REDDIT_SECRET')
 
-# Create output dir if missing
-if not os.path.exists(OUT_DIR):
-    os.mkdir(OUT_DIR)
-
 # Check if we are missing API key
 if ID is None or SECRET is None:
     print('REDDIT_ID or REDDIT_SECRET is unset!')

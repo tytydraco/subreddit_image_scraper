@@ -13,6 +13,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 # Constants
+MAX_BAIL_CNT = 10
 SUBREDDIT = sys.argv[1]
 ID = os.getenv('REDDIT_ID')
 SECRET = os.getenv('REDDIT_SECRET')
@@ -37,6 +38,7 @@ tmpdir = tempfile.mkdtemp()
 tmp_path = f'{tmpdir}/scraper_tmp'
 
 # Go through all hot posts
+bail_cnt = 0
 for post in hot_posts:
     # Filter out non-images
     if post.domain != 'i.redd.it':
@@ -59,6 +61,12 @@ for post in hot_posts:
     if not os.path.exists(new_file):
         shutil.copy(tmp_path, f'{new_file}')
         print(url)
+    else:
+        print('duplicate...')
+        bail_cnt += 1
+        if bail_cnt == MAX_BAIL_CNT:
+            print('bailing out')
+            sys.exit(0)
 
 # Remove temp file
 os.remove(tmp_path)
